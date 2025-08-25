@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Store</title>
+</head>
+<body>
+  <h1>Welcome to the Store</h1>
+  <button onclick="buy('rank1')">Buy VIP Rank ($5)</button>
+  <button onclick="buy('rank2')">Buy MVP Rank ($10)</button>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    async function buy(productId) {
+      const buyerName = prompt("Enter your username:");
+      const res = await fetch("/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId, buyerName })
+      });
+      const data = await res.json();
+
+      const stripe = Stripe("YOUR_STRIPE_PUBLIC_KEY");
+      stripe.redirectToCheckout({ sessionId: data.id });
+    }
+  </script>
+</body>
+</html>
