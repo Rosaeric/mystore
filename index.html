@@ -1,27 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Store</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TotemRush Store</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Welcome to the Store</h1>
-  <button onclick="buy('rank1')">Buy VIP Rank ($5)</button>
-  <button onclick="buy('rank2')">Buy MVP Rank ($10)</button>
+  <header>
+    <h1>TotemRush Store</h1>
+    <p>Purchase exclusive ranks, kits, and perks!</p>
+  </header>
 
-  <script src="https://js.stripe.com/v3/"></script>
-  <script>
-    async function buy(productId) {
-      const buyerName = prompt("Enter your username:");
-      const res = await fetch("/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId, buyerName })
-      });
-      const data = await res.json();
+  <main>
+    <div class="product-card">
+      <h2>VIP Rank</h2>
+      <p class="price">$5.00</p>
+      <button onclick="buy('vip')">Buy Now</button>
+    </div>
 
-      const stripe = Stripe("YOUR_STRIPE_PUBLIC_KEY");
-      stripe.redirectToCheckout({ sessionId: data.id });
-    }
-  </script>
+    <div class="product-card">
+      <h2>MVP Rank</h2>
+      <p class="price">$10.00</p>
+      <button onclick="buy('mvp')">Buy Now</button>
+    </div>
+
+    <div class="product-card">
+      <h2>Legend Rank</h2>
+      <p class="price">$20.00</p>
+      <button onclick="buy('legend')">Buy Now</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 TotemRush Store · All purchases support the server</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
